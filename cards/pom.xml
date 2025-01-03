@@ -72,6 +72,19 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<!-- nao requer o docker instalado
+				 mvn compile jib:build -->
+			<!-- mvn compile jib:dockerBuild -->
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.4</version>
+				<configuration>
+					<to>
+						<image>diegopimenta/${project.artifactId}:s4</image>
+					</to>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

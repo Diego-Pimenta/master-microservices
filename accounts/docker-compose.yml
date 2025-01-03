@@ -1,0 +1,40 @@
+services:
+  accounts:
+    image: "diegopimenta/accounts:s4"
+    container_name: accounts-ms
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - microservices
+
+  loans:
+    image: "diegopimenta/loans:s4"
+    container_name: loans-ms
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - microservices
+
+  cards:
+    image: "diegopimenta/cards:s4"
+    container_name: cards-ms
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: "bridge"
