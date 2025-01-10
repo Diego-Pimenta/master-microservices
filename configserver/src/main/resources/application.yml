@@ -17,12 +17,15 @@ spring:
           timeout: 5
           clone-on-start: true
           force-pull: true
+  # Valores padroes de conexao com o rabbitmq
+  # docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
   rabbitmq:
     host: "localhost"
     port: 5672
     username: "guest"
     password: "guest"
 
+# Pro bus refresh funcionar os endpoints do actuator precisam estar habilitados
 management:
   endpoints:
     web:

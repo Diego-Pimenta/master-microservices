@@ -20,6 +20,7 @@ spring:
     show-sql: true
   config:
     import: "optional:configserver:http://localhost:8071/"
+  # Com o bus refresh basta uma requisicao para todos os servicos atualizarem
   rabbitmq:
     host: "localhost"
     port: 5672

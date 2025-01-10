@@ -29,10 +29,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
 		</dependency>
+		<!-- Todos os servicos precisam da dependencia -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
+		<!-- Basta somente o configserver com o monitor -->
+		<!-- Cria um novo path que podemos usar com webhooks no github -->
+		<!-- Pra criar o webhook: repositorio github -> settings -> webhooks -->
+		<!-- http://localhost:8071/monitor -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-monitor</artifactId>
