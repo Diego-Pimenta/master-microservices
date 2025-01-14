@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+# Configs no config server
+#server:
+#  port: 8072
+#
+#eureka:
+#  instance:
+#    preferIpAddress: true
+#  client:
+#    registerWithEureka: true
+#    fetchRegistry: true
+#    serviceUrl:
+#      defaultZone: "http://localhost:8070/eureka/"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # Se estivesse true, teriamos configuracoes padroes de routing gracas ao eureka
+          enabled: false
+          lowerCaseServiceId: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "Eazy Bank Gateway Server Application"
+    version: "1.0.0"
+
+logging:
+  level:
+    com:
+      eazybytes:
+        gatewayserver: DEBUG

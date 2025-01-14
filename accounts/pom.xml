@@ -92,40 +92,13 @@
 
 	<build>
 		<plugins>
-			<!-- GraalVM, troca do JIT pelo AOT, compilacao demora mas gera um exec, roda muito + rapido -->
-			<!-- Consome poucos recursos, nao precisa do JDK ou JRE para executar, tudo compactado -->
-			<plugin>
-				<groupId>org.graalvm.buildtools</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-				<configuration>
-					<buildArgs>
-						<!-- Modo de build rapida, nao recomendado para prod -->
-						<buildArg>-Ob</buildArg>
-					</buildArgs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- mvn spring-boot:build-image -->
-				<configuration>
-					<image>
-						<name>diegopimenta/${project.artifactId}:normal</name>
-						<builder>paketobuildpacks/builder:tiny</builder>
-						<env>
-							<path>target/accounts-0.0.1-SNAPSHOT.jar</path>
-							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-						</env>
-					</image>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>jib-maven-plugin</artifactId>
 				<version>3.4.4</version>
 				<configuration>
 					<to>
-						<image>diegopimenta/${project.artifactId}:s8</image>
+						<image>diegopimenta/${project.artifactId}:s9</image>
 					</to>
 				</configuration>
 			</plugin>
