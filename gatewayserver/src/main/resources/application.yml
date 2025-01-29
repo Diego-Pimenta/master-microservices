@@ -22,6 +22,10 @@ spring:
           # Se estivesse true, teriamos configuracoes padroes de routing gracas ao eureka
           enabled: false
           lowerCaseServiceId: true
+      # Configuracoes globais de timeout para os servicos
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 2s
 
 management:
   endpoints:
@@ -46,3 +50,12 @@ logging:
     com:
       eazybytes:
         gatewayserver: DEBUG
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      # Numero de requests que devem ser analisados
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
