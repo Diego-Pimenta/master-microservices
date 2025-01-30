@@ -60,7 +60,7 @@
 				<version>3.4.4</version>
 				<configuration>
 					<to>
-						<image>diegopimenta/${project.artifactId}:s9</image>
+						<image>diegopimenta/${project.artifactId}:s10</image>
 					</to>
 				</configuration>
 			</plugin>
