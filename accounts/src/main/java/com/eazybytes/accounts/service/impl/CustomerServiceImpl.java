@@ -29,6 +29,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     /**
      * @param mobileNumber - Input Mobile Number
+     * @param correlationId - Correlation ID value generated at Edge server
      * @return Customer Details based on a given mobileNumber
      */
     @Override
@@ -40,9 +41,7 @@ public class CustomerServiceImpl implements ICustomerService {
                 .orElseThrow(() -> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString()));
 
         CustomerDetailsDto customerDetailsDto = CustomerMapper.mapToCustomerDetailsDto(customer, new CustomerDetailsDto());
-        if (customerDetailsDto != null) {
-            customerDetailsDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
-        }
+        customerDetailsDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
 
         ResponseEntity<LoansDto> loansDtoResponseEntity = loansFeignClient.fetchLoanDetails(correlationId, mobileNumber);
         if (loansDtoResponseEntity != null) {
@@ -50,7 +49,9 @@ public class CustomerServiceImpl implements ICustomerService {
         }
 
         ResponseEntity<CardsDto> cardsDtoResponseEntity = cardsFeignClient.fetchCardDetails(correlationId, mobileNumber);
-        customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+        if (cardsDtoResponseEntity != null) {
+            customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+        }
 
         return customerDetailsDto;
     }
