@@ -34,6 +34,9 @@ management:
     health:
       probes:
         enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 # accounts-prod.yml no github esta encriptado
 encrypt:
