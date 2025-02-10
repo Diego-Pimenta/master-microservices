@@ -33,6 +33,12 @@ spring:
       host: localhost
       port: 6379
       timeout: 1s
+  # docker run -p 7080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.1.1 start-dev
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwt-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
 
 management:
   endpoints:
