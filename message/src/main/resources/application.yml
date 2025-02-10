@@ -1,0 +1,25 @@
+server:
+  port: 9010
+
+spring:
+  application:
+    name: "message"
+  cloud:
+    function:
+      # Permite chamar as 2 func ao msm tempo
+      definition: email|sms
+    stream:
+      bindings:
+        # 2. Apos uma conta ser criada, o servico recebe a notificacao
+        emailsms-in-0:
+          destination: send-communication
+          group: ${spring.application.name}
+        # 3. Logo apos sera enviada uma notif. avisando que a comunicacao foi estabelecida
+        emailsms-out-0:
+          destination: communication-sent
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s

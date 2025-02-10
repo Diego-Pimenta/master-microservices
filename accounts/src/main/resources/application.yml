@@ -24,6 +24,24 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+    function:
+      # O nome da funcao criada (Para mais funcs, separar com ';')
+      definition: updateCommunication
+    stream:
+      bindings:
+        # 4. Como o topico de destino recebeu uma notif., sera chamada a func updateComm.
+        updateCommunication-in-0:
+          destination: communication-sent
+          group: ${spring.application.name}
+        # 1. Ao criar uma conta, uma notificacao sera enviado ao topico de destino
+        sendCommunication-out-0:
+          destination: send-communication
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s
 
 management:
   endpoints:
