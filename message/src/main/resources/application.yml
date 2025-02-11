@@ -17,9 +17,13 @@ spring:
         # 3. Logo apos sera enviada uma notif. avisando que a comunicacao foi estabelecida
         emailsms-out-0:
           destination: communication-sent
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    connection-timeout: 10s
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#    connection-timeout: 10s
