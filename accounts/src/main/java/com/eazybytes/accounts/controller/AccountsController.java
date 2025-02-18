@@ -166,7 +166,7 @@ public class AccountsController {
     public ResponseEntity<String> getJavaVersionFallback(Throwable throwable) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Java 17");
+                .body("Java 21");
     }
 
     @Operation(summary = "Get Contact Info", description = "Contact Info details that can be reached out in case of any issues")

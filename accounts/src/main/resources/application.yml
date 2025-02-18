@@ -9,7 +9,7 @@ spring:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
-    password: ''
+    password: ""
   h2:
     console:
       enabled: true
@@ -25,15 +25,12 @@ spring:
       circuitbreaker:
         enabled: true
     function:
-      # O nome da funcao criada (Para mais funcs, separar com ';')
       definition: updateCommunication
     stream:
       bindings:
-        # 4. Como o topico de destino recebeu uma notif., sera chamada a func updateComm.
         updateCommunication-in-0:
           destination: communication-sent
           group: ${spring.application.name}
-        # 1. Ao criar uma conta, uma notificacao sera enviado ao topico de destino
         sendCommunication-out-0:
           destination: send-communication
       kafka:
@@ -51,7 +48,6 @@ management:
   endpoints:
     web:
       exposure:
-        # O refresh do actuator precisa ser feito em cada um dos servicos, mais trabalhoso
         include: "*"
   health:
     readiness-state:
@@ -60,7 +56,7 @@ management:
       enabled: true
   endpoint:
     shutdown:
-      enabled: true
+      access: unrestricted
     health:
       probes:
         enabled: true
@@ -70,10 +66,6 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
-
-endpoints:
-  shutdown:
-    enabled: true
 
 eureka:
   instance:
@@ -113,10 +105,8 @@ resilience4j.retry:
       waitDuration: 500
       enableExponentialBackoff: true
       exponentialBackoffMultiplier: 2
-      # Seleciona para quais excecoes nao deve fazer o retry
       ignoreExceptions:
         - java.lang.NullPointerException
-      # Aponta para as unicas excecoes que receberao retry, logo invalida o ignoreExceptions
       retryExceptions:
         - java.util.concurrent.TimeoutException
 

@@ -9,7 +9,7 @@ spring:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
-    password: ''
+    password: ""
   h2:
     console:
       enabled: true
@@ -33,7 +33,7 @@ management:
       enabled: true
   endpoint:
     shutdown:
-      enabled: true
+      access: unrestricted
     health:
       probes:
         enabled: true
@@ -43,10 +43,6 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
-
-endpoints:
-  shutdown:
-    enabled: true
 
 eureka:
   instance:

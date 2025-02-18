@@ -3,43 +3,26 @@ spring:
     name: "gatewayserver"
   config:
     import: "optional:configserver:http://localhost:8071/"
-# Configs no config server
-#server:
-#  port: 8072
-#
-#eureka:
-#  instance:
-#    preferIpAddress: true
-#  client:
-#    registerWithEureka: true
-#    fetchRegistry: true
-#    serviceUrl:
-#      defaultZone: "http://localhost:8070/eureka/"
   cloud:
     gateway:
       discovery:
         locator:
-          # Se estivesse true, teriamos configuracoes padroes de routing gracas ao eureka
           enabled: false
           lowerCaseServiceId: true
-      # Configuracoes globais de timeout para os servicos
       httpclient:
         connect-timeout: 1000
-        response-timeout: 2s
-  # docker run -p 6379:6379 --name eazyredis -d redis
+        response-timeout: 10s
   data:
     redis:
       connect-timeout: 2s
       host: localhost
       port: 6379
       timeout: 1s
-  # docker run -p 7080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.1.1 start-dev
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwt-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
-
+          jwk-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
 management:
   endpoints:
     web:
@@ -47,7 +30,7 @@ management:
         include: "*"
   endpoint:
     gateway:
-      enabled: true
+      access: unrestricted
   info:
     env:
       enabled: true
@@ -72,7 +55,6 @@ logging:
 resilience4j.circuitbreaker:
   configs:
     default:
-      # Numero de requests que devem ser analisados
       slidingWindowSize: 10
       permittedNumberOfCallsInHalfOpenState: 2
       failureRateThreshold: 50
